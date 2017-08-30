@@ -1,0 +1,33 @@
+extract:
+  - step: Download the data via HTTP
+    action: extract.source.http.DownloadFiles
+    fetch:
+      - "https://raw.githubusercontent.com/enigmadocs/convert-dates/master/dates.csv"
+
+  - step: Extract fields from CSV file
+    action: extract.formats.CSV.ReadRecords
+
+transform:
+  - step: Set output schema
+    action: transform.schema.SetSchema
+    fields:
+      - name: Name
+        type: string
+      - name: DOB
+        type: datetime
+
+  - step:
+    action: debug.LogValues
+
+  - step: Convert date of birth
+    action: transform.conversion.ParseDatetime
+    fields:
+      - field_name: DOB
+        formats:
+          - "MM/DD/YYYY"
+        date_only: false
+
+load:
+  - step: Save locally
+    action: load.OutputCSV
+    repository: .

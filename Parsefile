@@ -1,10 +1,10 @@
 ###
-# Parsefile for download-ftp
+# Parsefile for convert-dates
 # 2017-08-29
 ###
 
-name: download-ftp
-description: "Downloads data over FTP"
+name: convert-dates
+description: "Demonstrates date conversion"
 maintainers:
   - Peter Henderson <name@domain.com>
 version: "1.0.0"

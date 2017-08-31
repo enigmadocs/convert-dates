@@ -14,18 +14,19 @@ transform:
       - name: Name
         type: string
       - name: DOB
-        type: datetime
-
-  - step:
-    action: debug.LogValues
+        type: date
 
   - step: Convert date of birth
     action: transform.conversion.ParseDatetime
+    store_unparsed: yes
     fields:
       - field_name: DOB
         formats:
+          - "M/D/YYYY"
           - "MM/DD/YYYY"
-        date_only: false
+          - "MMM D, YYYY"
+          - "MMMM D, YYYY"
+        date_only: yes
 
 load:
   - step: Save locally

@@ -15,6 +15,10 @@ transform:
         type: string
       - name: DOB
         type: date
+      - name: Start_time
+        type: datetime
+      - name: End_time
+        type: datetime
 
   - step: Convert date of birth
     action: transform.conversion.ParseDatetime
@@ -27,6 +31,19 @@ transform:
           - "MMM D, YYYY"
           - "MMMM D, YYYY"
         date_only: yes
+
+  - step: Convert start/end time
+    action: transform.conversion.ParseDatetime
+    store_unparsed: no
+    fields:
+      - field_name: Start_time
+        formats:
+          - "M/D/YYYY HH:mm"
+          - "MM/DD/YYYY HH:mm"
+      - field_name: End_time
+        formats:
+          - "M/D/YYYY HH:mm"
+          - "MM/DD/YYYY HH:mm"
 
 load:
   - step: Save locally

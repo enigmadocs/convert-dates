@@ -21,7 +21,6 @@ transform:
         type: datetime
       - name: End_time
         type: datetime
-    scope: record
 
   - step: Convert date of birth
     action: transform.conversion.ParseDatetime

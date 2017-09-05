@@ -1,8 +1,13 @@
 extract:
-  - step: Download the data via HTTP
-    action: extract.source.http.DownloadFiles
-    fetch:
-      - "https://raw.githubusercontent.com/enigmadocs/convert-dates/master/dates.csv"
+  # - step: Download the data via HTTP
+  #   action: extract.source.http.DownloadFiles
+  #   fetch:
+  #     - "https://raw.githubusercontent.com/enigmadocs/convert-dates/master/dates.csv"
+
+  - step: Send the path for the local file to the next step
+    action: extract.emit.EmitPaths
+    paths:
+      - dates.csv
 
   - step: Extract fields from CSV file
     action: extract.formats.CSV.ReadRecords
@@ -15,6 +20,13 @@ transform:
         type: string
       - name: DOB
         type: date
+      - name: Registered
+        type: datetime
+      - name: Start_time
+        type: datetime
+      - name: End_time
+        type: datetime
+    scope: record
 
   - step: Convert date of birth
     action: transform.conversion.ParseDatetime
@@ -27,6 +39,23 @@ transform:
           - "MMM D, YYYY"
           - "MMMM D, YYYY"
         date_only: yes
+
+  - step: Convert registered datetime
+    action: transform.conversion.ParseDatetime
+    fields:
+      - field_name: Registered
+        formats:
+          - "M/D/YYYY HH:mm"
+
+  - step: Convert start/end time
+    action: transform.conversion.ParseDatetime
+    fields:
+      - field_name: Start_time
+        formats:
+          - "MM/DD/YY H:mm:ssA"
+      - field_name: End_time
+        formats:
+          - "MM/DD/YY H:mm:ssA"
 
 load:
   - step: Save locally

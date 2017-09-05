@@ -1,13 +1,8 @@
 extract:
-  # - step: Download the data via HTTP
-  #   action: extract.source.http.DownloadFiles
-  #   fetch:
-  #     - "https://raw.githubusercontent.com/enigmadocs/convert-dates/master/dates.csv"
-
-  - step: Send the path for the local file to the next step
-    action: extract.emit.EmitPaths
-    paths:
-      - dates.csv
+  - step: Download the data via HTTP
+    action: extract.source.http.DownloadFiles
+    fetch:
+      - "https://raw.githubusercontent.com/enigmadocs/convert-dates/master/dates.csv"
 
   - step: Extract fields from CSV file
     action: extract.formats.CSV.ReadRecords

@@ -40,16 +40,12 @@ transform:
           - "MMMM D, YYYY"
         date_only: yes
 
-  - step: Convert registered datetime
+  - step: Convert datetime fields
     action: transform.conversion.ParseDatetime
     fields:
       - field_name: Registered
         formats:
           - "M/D/YYYY HH:mm"
-
-  - step: Convert start/end time
-    action: transform.conversion.ParseDatetime
-    fields:
       - field_name: Start_time
         formats:
           - "MM/DD/YY H:mm:ssA"
